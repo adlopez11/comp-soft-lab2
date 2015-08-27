@@ -12,8 +12,10 @@
 
 package com.losalpes.servicios;
 
+import com.losalpes.bos.Mueble;
 import com.losalpes.bos.Usuario;
 import com.losalpes.excepciones.AutenticacionException;
+import java.util.List;
 
 /**
  * Contrato funcional de los servicios que se le prestan al catalogo
@@ -30,4 +32,15 @@ public interface IServicioSeguridad
      */
     public Usuario login(String nombre, String contraseña)throws AutenticacionException;
 
+    /**
+     * Agrega un usuario al sistema
+     * @param usuario Nuevo usuario
+     */
+    public void agregarUsuario(Usuario usuario);
+
+    /**
+     * Devuelve todos los usuarios del sistema
+     * @return usuarios Lista de usuarios
+     */
+    public List<Usuario> darUsuarios();
 }
