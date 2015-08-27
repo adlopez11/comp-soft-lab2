@@ -7,7 +7,30 @@
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>login</from-outcome>
+            <to-view-id>/dashboard.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/dashboard.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>muebles</from-outcome>
             <to-view-id>/catalogo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>usuarios</from-outcome>
+            <to-view-id>/usuarios.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>carrito</from-outcome>
+            <to-view-id>/carrito.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

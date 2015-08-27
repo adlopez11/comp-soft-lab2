@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Administración de usuarios" />
+    <ui:define name="body">
+        <h:form>
+
+            <!-- Panel para agregar un nuevo usuario -->
+            <h:panelGroup>
+                <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                    <h:outputLabel for="TxtNombre" value="Nombre"/>
+                    <h:inputText id="TxtNombre"
+                                 size="10"
+                                 maxlength="10"
+                                 label="Nombre"
+                                 value="#{usuarioBean.usuario.nombre}"
+                                 required="true"
+                                 >
+                        <f:validateLength minimum="1"/>
+                    </h:inputText>
+                    <h:message id="nameMsg" for="TxtNombre" />
+                </h:panelGrid>
+
+                <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                    <h:outputLabel for="TxtContraseña"
+                                   value="Contraseña" />
+                    <h:inputText id="TxtContraseña"
+                                 maxlength="20"
+                                 size="20"
+                                 value="#{usuarioBean.usuario.contraseña}"
+                                 label="Contraseña"
+                                 required="true">
+                        <f:validateLength minimum="5"/>
+                    </h:inputText>
+                    <h:message id="pwMsg" for="TxtContraseña" />
+                </h:panelGrid>
+
+                <h:outputLabel for="TxtRol" value="Rol"/>
+                <h:panelGrid>
+                    <h:selectOneMenu value="#{usuarioBean.usuario.tipo}" id="TxtRol">
+                        <f:selectItems value="#{usuarioBean.tiposUsuario}" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+                <h:commandButton value="Agregar" action="#{usuarioBean.agregarUsuario}" />
+                <h:commandButton value="Limpiar" action="#{usuarioBean.limpiar}" />
+            </h:panelGroup>
+
+        </h:form>
+        <h:form>
+
+
+            <!-- Se crea una tabla donde se presentan los usuarios del sistema -->
+            <p:dataTable
+                id="data"
+                value="#{usuarioBean.usuarios}"
+                var="file"
+                scrollable="false"
+                scrollHeight="100px"
+                paginator="true"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                resizableColumns="true"
+                rows="5">
+
+
+                <p:column headerText="Nombre" sortBy="#{file.nombre}">
+                    <h:outputText value="#{file.nombre}" />
+                </p:column>
+
+                <p:column headerText="Rol">
+                    <h:outputText value="#{file.tipo}" />
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>
