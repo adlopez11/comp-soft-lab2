@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Catálogo de muebles" />
+    <ui:define name="body">
+        <h:form>
+            <br/>
+            <h:outputText style="font-weight: bold; font-size: 14px;" value="Catalogo de Muebles"/>
+            <br/>
+            <br/>
+            <p:dataGrid var="mueble" value="#{catalogoBean.muebles}" columns="3" layout="grid"
+                        rows="9" paginator="true" id="muebles">
+
+                <f:facet name="header">
+                    Muebles a la venta
+                </f:facet>
+
+                <p:panel header="#{mueble.referencia}" style="text-align:center">
+                    <h:outputText value="#{mueble.nombre}" style="font-weight: bold; font-size: 16px;" />
+                    <br/>
+                    <br/>
+                    <div align="justify">
+                        <h:outputText value="#{mueble.descripcion}" />
+                    </div>
+                    <h:outputText value="#{mueble.tipo}" style="font-size: 14px; font-weight: bold;" />
+                    <div align="right">
+                        <h:outputText value="#{mueble.valor}" style="font-weight: bold; color: blue; font-size: 18px;">
+                            <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                        </h:outputText>
+                    </div>
+                </p:panel>
+
+            </p:dataGrid>
+            <br/>
+            <br/>
+            <h:commandButton value="Menu" action="atras" />
+            <br/>
+            <br/>
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>
