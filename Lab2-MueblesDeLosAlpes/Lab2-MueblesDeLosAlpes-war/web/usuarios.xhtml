@@ -33,14 +33,14 @@
                 <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
                     <h:outputLabel for="TxtContraseña"
                                    value="Contraseña" />
-                    <h:inputText id="TxtContraseña"
+                    <h:inputSecret id="TxtContraseña"
                                  maxlength="20"
                                  size="20"
                                  value="#{usuarioBean.usuario.contraseña}"
                                  label="Contraseña"
                                  required="true">
                         <f:validateLength minimum="5"/>
-                    </h:inputText>
+                    </h:inputSecret>
                     <h:message id="pwMsg" for="TxtContraseña" />
                 </h:panelGrid>
 

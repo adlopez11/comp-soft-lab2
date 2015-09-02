@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Reportes" />
+    <ui:define name="body">
+        <h:form>
+            <!-- Se crea una tabla donde se presentan las ventas del carrito -->
+            <p:dataTable
+                id="data"
+                value="#{carritoBean.ventas}"
+                var="file"
+                paginator="true"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                resizableColumns="true"
+                rows="10">
+                   
+                <f:facet name="{Exporters}">
+                    <h:commandLink>
+                        <p:graphicImage name="/img/exp/excel.png" width="24"/>
+                        <p:dataExporter type="xls" target="data" fileName="cars" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="/img/exp/csv.png" width="24"/>
+                        <p:dataExporter type="csv" target="data" fileName="cars" />
+                    </h:commandLink>
+                    
+                </f:facet>
+
+                <p:column headerText="Referencia" sortBy="#{file.mueble.referencia}">
+                    <h:outputText value="#{file.mueble.referencia}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{file.mueble.nombre}" />
+                </p:column>
+
+                <p:column headerText="Descripción">
+                    <h:outputText value="#{file.mueble.descripcion}" />
+                </p:column>
+
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{file.mueble.tipo}" />
+                </p:column>
+
+                <p:column headerText="Valor">
+                    <h:outputText value="#{file.mueble.valor}" >
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{file.cantidad}" />
+                </p:column>
+                
+                <p:column headerText="Cliente">
+                    <h:outputText value="#{file.cliente.nombre}" />
+                </p:column>
+
+            </p:dataTable>
+            <br/>
+            <br/>
+            <h:commandLink value="Menu" action="atras" />
+            <br/>
+            <br/>
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>

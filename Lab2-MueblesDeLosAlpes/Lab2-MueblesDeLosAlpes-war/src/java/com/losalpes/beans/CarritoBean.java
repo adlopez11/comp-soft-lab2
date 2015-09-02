@@ -10,8 +10,8 @@
  */
 package com.losalpes.beans;
 
-import com.losalpes.bos.Mueble;
-import com.losalpes.servicios.IServicioCatalogo;
+import com.losalpes.bos.Venta;
+import com.losalpes.servicios.IServicioVenta;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -32,10 +32,10 @@ public class CarritoBean implements Serializable {
     // Atributos
     //-----------------------------------------------------------
     /**
-     * Relación con la interfaz que provee los servicios necesarios del
-     * catálogo.
+     * Relación con la interfaz que provee los servicios necesarios de las
+     * ventas.
      */
-    private IServicioCatalogo catalogo;
+    private IServicioVenta venta;
 
     //-----------------------------------------------------------
     // Constructor
@@ -47,14 +47,14 @@ public class CarritoBean implements Serializable {
     }
 
     /**
-     * PostConstruct donde se incializa el catalogo de muebles, que se encuentra
+     * PostConstruct donde se incializa el la lista de ventas, que se encuentra
      * en la unica fuente de datos en bean de aplicaición DatosBean
      */
     @PostConstruct
     public void inicializar() {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         DatosBean datos = (DatosBean) servletContext.getAttribute("datosBean");
-        catalogo = datos.getCatalogo();
+        venta = datos.getVentas();
     }
 
     /**
@@ -62,8 +62,8 @@ public class CarritoBean implements Serializable {
      *
      * @return muebles Muebles del sistema
      */
-    public List<Mueble> getMuebles() {
+    public List<Venta> getVentas() {
 
-        return catalogo.darMuebles();
+        return venta.getVentas();
     }
 }
