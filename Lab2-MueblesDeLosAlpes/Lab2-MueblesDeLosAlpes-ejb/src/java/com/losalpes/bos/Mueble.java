@@ -9,6 +9,8 @@
  */
 package com.losalpes.bos;
 
+import java.util.Objects;
+
 /**
  * Clase que representa la información de un mueble en el sistema
  */
@@ -174,6 +176,36 @@ public class Mueble {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    /**
+     * Metodo que crea el codigo Hash a partir del campo Referencia
+     *
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.referencia);
+        return hash;
+    }
+
+    /**
+     * Metodo que compara de dos intancias de mueble por el campo Referencia
+     *
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mueble other = (Mueble) obj;
+        if (!Objects.equals(this.referencia, other.referencia)) {
+            return false;
+        }
+        return true;
     }
 
 }

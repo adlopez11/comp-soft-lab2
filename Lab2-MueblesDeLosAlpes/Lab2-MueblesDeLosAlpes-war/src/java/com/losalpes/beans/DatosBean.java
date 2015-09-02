@@ -12,8 +12,10 @@ package com.losalpes.beans;
 
 import com.losalpes.servicios.IServicioCatalogo;
 import com.losalpes.servicios.IServicioSeguridad;
+import com.losalpes.servicios.IServicioVenta;
 import com.losalpes.servicios.ServicioCatalogoMock;
 import com.losalpes.servicios.ServicioSeguridadMock;
+import com.losalpes.servicios.ServicioVentaMock;
 import java.io.Serializable;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -44,6 +46,11 @@ public class DatosBean implements Serializable {
      */
     private final IServicioCatalogo catalogo;
 
+    /**
+     * Relación con la interfaz que provee las ventas realizadas
+     */
+    private final IServicioVenta ventas;
+
     //-----------------------------------------------------------
     // Constructor
     //-----------------------------------------------------------
@@ -54,6 +61,7 @@ public class DatosBean implements Serializable {
         System.out.println("Inicio la aplicación");
         servicio = new ServicioSeguridadMock();
         catalogo = new ServicioCatalogoMock();
+        ventas = new ServicioVentaMock();
     }
 
     /**
@@ -68,9 +76,18 @@ public class DatosBean implements Serializable {
     /**
      * Retorna el catalogo de muebles
      *
-     * @return
+     * @return servicio de muebles
      */
     public IServicioCatalogo getCatalogo() {
         return catalogo;
+    }
+
+    /**
+     * Retorna el servicio de ventas
+     *
+     * @return servicio venta
+     */
+    public IServicioVenta getVentas() {
+        return ventas;
     }
 }

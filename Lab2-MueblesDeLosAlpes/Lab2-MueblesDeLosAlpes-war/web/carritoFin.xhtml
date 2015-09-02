@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Catálogo de muebles" />
+    <ui:define name="body">
+        <h:form>
+            <br/>
+            <br/>
+            <p:panel header="Transacción Correcta">
+                <div align="justify">
+                    <h:outputText value="La compra se ha realizado correctamente" style="font-weight: bold; font-size: 16px;" />
+                </div>
+            </p:panel>
+            <br/>
+            <br/>
+            <h:commandButton value="Menu" action="menu" />
+            <br/>
+            <br/>
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>

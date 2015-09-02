@@ -11,14 +11,19 @@
 package com.losalpes.beans;
 
 import com.losalpes.bos.Mueble;
+import com.losalpes.bos.Usuario;
+import com.losalpes.bos.Venta;
 import com.losalpes.servicios.IServicioCatalogo;
+import com.losalpes.servicios.IServicioVenta;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 /**
  * Managed bean encargado del manejo del carrito de compras
@@ -37,6 +42,17 @@ public class CarritoBean implements Serializable {
      */
     private IServicioCatalogo catalogo;
 
+    /**
+     * Relación con la interfaz que provee el servicio con las ventas realizadas
+     */
+    private IServicioVenta ventas;
+
+    /**
+     * Relación con la interfaz que provee los servicios necesarios del
+     * catálogo.
+     */
+    private final List<Venta> carrito;
+
     //-----------------------------------------------------------
     // Constructor
     //-----------------------------------------------------------
@@ -44,6 +60,7 @@ public class CarritoBean implements Serializable {
      * Constructor de la clase principal
      */
     public CarritoBean() {
+        carrito = new ArrayList<>();
     }
 
     /**
@@ -55,6 +72,7 @@ public class CarritoBean implements Serializable {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         DatosBean datos = (DatosBean) servletContext.getAttribute("datosBean");
         catalogo = datos.getCatalogo();
+        ventas = datos.getVentas();
     }
 
     /**
@@ -65,5 +83,84 @@ public class CarritoBean implements Serializable {
     public List<Mueble> getMuebles() {
 
         return catalogo.darMuebles();
+    }
+
+    /**
+     * Agrega un articulo al carrito
+     *
+     * @param mueble Mueble a agregar
+     */
+    public void agregar(final Mueble mueble) {
+        boolean existe = false;
+        for (Venta venta : carrito) {
+            if (venta.getMueble().equals(mueble)) {
+                venta.setCantidad(venta.getCantidad() + 1);
+                existe = true;
+            }
+        }
+        if (!existe) {
+            Venta venta = new Venta();
+            venta.setCantidad(1);
+            venta.setMueble(mueble);
+            carrito.add(venta);
+        }
+    }
+
+    /**
+     * metodo que simula un pago y agrega los articulos del carrito a lista de
+     * ventas
+     *
+     */
+    public String pagar() {
+        HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuario = (Usuario) sesion.getAttribute("Usuario");
+
+        for (Venta venta : carrito) {
+            venta.setCliente(usuario);
+            ventas.agregarVenta(venta);
+        }
+        carrito.clear();
+        return "pagado";
+    }
+
+    /**
+     * Total de articulos agregados al carrito
+     *
+     * @return Total de articulos agregados al carrito
+     */
+    public String getTotalArticulos() {
+        int total = 0;
+
+        for (Venta venta : carrito) {
+            total += venta.getCantidad();
+        }
+        return String.valueOf(total);
+    }
+
+    /**
+     * Total de articulos agregados al carrito
+     *
+     * @return Total de articulos agregados al carrito
+     */
+    public Double getTotalCosto() {
+        Double total = 0d;
+
+        for (Venta venta : carrito) {
+            total += (venta.getMueble().getValor() * (double) venta.getCantidad());
+        }
+        return total;
+    }
+
+    /**
+     * Retorna la lista de muebles vendidos
+     *
+     * @return Lista de tipos de muebles vendidos
+     */
+    public List<Venta> getCarrito() {
+        return carrito;
+    }
+
+    public boolean isSeleccionados() {
+        return !carrito.isEmpty();
     }
 }

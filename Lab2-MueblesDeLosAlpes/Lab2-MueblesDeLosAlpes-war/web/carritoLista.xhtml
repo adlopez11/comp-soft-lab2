@@ -45,8 +45,8 @@
                         </td>
                         <td align="center">
                             <table>
-                                <tr><td><p:commandButton value="Ver Articulos" action="lista" style="width: 130px; font-size: 14px;" disabled="#{!carritoBean.seleccionados}"/></td></tr>
-                                <tr><td><p:commandButton value="Pagar" action="pagar" style="width: 130px; font-size: 14px;" disabled="#{!carritoBean.seleccionados}"/></td></tr>
+                                <tr><td><p:commandButton value="Ver Catalogo" action="atras" style="width: 130px; font-size: 14px;"/></td></tr>
+                                <tr><td><p:commandButton value="Pagar" action="pagar" style="width: 130px; font-size: 14px;"/></td></tr>
                             </table>
 
                         </td>
@@ -55,42 +55,46 @@
             </p:panel>
             <br/>
             <br/>
-            <p:dataGrid var="mueble" value="#{carritoBean.muebles}" columns="3" layout="grid"
-                        rows="9" paginator="true" id="muebles">
+            <p:dataTable
+                id="data"
+                value="#{carritoBean.carrito}"
+                var="venta"
+                paginator="true"
+                rows="10">
 
-                <f:facet name="header">
-                    Muebles a la venta
-                </f:facet>
 
-                <p:panel style="text-align:center">
-                    <h:outputText value="#{mueble.nombre} " style="font-weight: bold; font-size: 16px;" />
-                    <h:outputText value="(#{mueble.referencia})" style="font-size: 16px;" />
-                    <br/>
-                    <br/>
-                    <div align="justify">
-                        <h:outputText value="#{mueble.descripcion}" />
-                    </div>
-                    <br/>
-                    <h:outputText value="#{mueble.tipo}" style="font-size: 14px; font-weight: bold;" />
-                    <br/>
-                    <br/>
-                    <table width="100%">
-                        <tr>
-                            <td>
-                                <p:commandButton value="Agregar" actionListener="#{carritoBean.agregar(mueble)}" update="#{p:component('carrito_pnl')}" style="font-size: 12px;"/>
-                            </td>
-                            <td align="right">
-                                <h:outputText value="#{mueble.valor}" style="font-weight: bold; color: blue; font-size: 18px;">
-                                    <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
-                                </h:outputText>
-                            </td>
-                        </tr>
-                    </table>
-                </p:panel>
-            </p:dataGrid>
+                <p:column headerText="Referencia" sortBy="#{venta.mueble.referencia}">
+                    <h:outputText value="#{venta.mueble.referencia}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{venta.mueble.nombre}" />
+                </p:column>
+
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{venta.mueble.tipo}" />
+                </p:column>
+
+                <p:column headerText="Valor Unitario">
+                    <h:outputText value="#{venta.mueble.valor}" >
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{venta.cantidad}" />
+                </p:column>
+
+                <p:column headerText="valor Total">
+                    <h:outputText value="#{(venta.cantidad * venta.mueble.valor)}" >
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                    </h:outputText>
+                </p:column>
+
+            </p:dataTable>
             <br/>
             <br/>
-            <h:commandButton value="Menu" action="atras" />
+            <h:commandButton value="Menu" action="menu" />
             <br/>
             <br/>
         </h:form>
