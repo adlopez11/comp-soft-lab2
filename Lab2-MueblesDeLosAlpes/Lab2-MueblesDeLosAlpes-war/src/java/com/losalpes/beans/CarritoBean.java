@@ -38,10 +38,10 @@ public class CarritoBean implements Serializable {
     // Atributos
     //-----------------------------------------------------------
     /**
-     * Relación con la interfaz que provee los servicios necesarios del
-     * catálogo.
+     * Relación con la interfaz que provee los servicios necesarios de las
+     * ventas.
      */
-    private IServicioCatalogo catalogo;
+    private IServicioVenta venta;
 
     /**
      * Relación con la interfaz que provee el servicio con las ventas realizadas
@@ -81,9 +81,9 @@ public class CarritoBean implements Serializable {
      *
      * @return muebles Muebles del sistema
      */
-    public List<Mueble> getMuebles() {
+    public List<Venta> getVentas() {
 
-        return catalogo.darMuebles();
+        return venta.getVentas();
     }
 
     /**

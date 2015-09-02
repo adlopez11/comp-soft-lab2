@@ -45,6 +45,13 @@ public class DatosBean implements Serializable {
      * catálogo.
      */
     private final IServicioCatalogo catalogo;
+    
+    
+    /**
+     * Relación con la interfaz que provee los servicios necesarios de
+     * la venta.
+     */
+    private final IServicioVenta venta;
 
     /**
      * Relación con la interfaz que provee las ventas realizadas
