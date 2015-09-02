@@ -15,7 +15,7 @@
         <h:form>
 
             <!-- Panel para agregar un nuevo usuario -->
-            <h:panelGroup>
+            <p:panel id="panel_grp">
                 <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
                     <h:outputLabel for="TxtNombre" value="Nombre"/>
                     <h:inputText id="TxtNombre"
@@ -34,11 +34,11 @@
                     <h:outputLabel for="TxtContraseña"
                                    value="Contraseña" />
                     <h:inputSecret id="TxtContraseña"
-                                 maxlength="20"
-                                 size="20"
-                                 value="#{usuarioBean.usuario.contraseña}"
-                                 label="Contraseña"
-                                 required="true">
+                                   maxlength="20"
+                                   size="20"
+                                   value="#{usuarioBean.usuario.contraseña}"
+                                   label="Contraseña"
+                                   required="true">
                         <f:validateLength minimum="5"/>
                     </h:inputSecret>
                     <h:message id="pwMsg" for="TxtContraseña" />
@@ -51,14 +51,11 @@
                     </h:selectOneMenu>
                 </h:panelGrid>
 
-                <h:commandButton value="Agregar" action="#{usuarioBean.agregarUsuario}" />
+                <h:commandButton value="Agregar" action="#{usuarioBean.guardarUsuario}" />
                 <h:commandButton value="Limpiar" action="#{usuarioBean.limpiar}" />
-            </h:panelGroup>
-        </h:form>
-        <br/>
-        <br/>
-        <h:form id="carDetail"></h:form>
-        <h:form>
+            </p:panel>
+            <br/>
+            <br/>
             <!-- Se crea una tabla donde se presentan los usuarios del sistema -->
             <p:dataTable
                 id="data"
@@ -73,8 +70,10 @@
                 resizableColumns="true"
                 rows="5">
 
+                <p:ajax event="rowSelectRadio" update=":#{p:component('panel_grp')}" />
+
                 <p:column selectionMode="single" style="width:16px;text-align:center"/>
-                
+
                 <p:column headerText="Nombre" sortBy="#{file.nombre}">
                     <h:outputText value="#{file.nombre}" />
                 </p:column>

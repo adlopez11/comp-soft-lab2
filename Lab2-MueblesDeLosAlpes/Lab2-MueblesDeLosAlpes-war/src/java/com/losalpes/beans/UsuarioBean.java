@@ -37,13 +37,13 @@ public class UsuarioBean implements Serializable {
      * Representa un nuevo usuario a ingresar
      */
     private Usuario usuario;
-    
+
     /**
      * Representa el usuario seleccionado
      */
     private Usuario usuarioSeleccionado;
 
-       /**
+    /**
      * Relación con la interfaz que provee los servicios necesarios de la
      * seguridad.
      */
@@ -107,7 +107,8 @@ public class UsuarioBean implements Serializable {
     /**
      * Agrega un nuevo usuario al sistema
      */
-    public void agregarUsuario() {
+    public void guardarUsuario() {
+//        seguridad
         seguridad.agregarUsuario(usuario);
         usuario = new Usuario();
     }
@@ -134,21 +135,21 @@ public class UsuarioBean implements Serializable {
         return sitems;
     }
 
-     public Usuario getUsuarioSeleccionado() {
+    public Usuario getUsuarioSeleccionado() {
         return usuarioSeleccionado;
     }
 
     public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
         this.usuarioSeleccionado = usuarioSeleccionado;
     }
-    
+
     public void onRowSelect(SelectEvent event) {
-       /* FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+        /* FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
+         FacesContext.getCurrentInstance().addMessage(null, msg);*/
     }
- 
+
     public void onRowUnselect(UnselectEvent event) {
-       /* FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+        /* FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
+         FacesContext.getCurrentInstance().addMessage(null, msg);*/
     }
 }
