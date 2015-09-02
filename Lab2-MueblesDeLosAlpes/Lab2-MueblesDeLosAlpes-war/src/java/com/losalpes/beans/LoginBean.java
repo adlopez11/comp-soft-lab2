@@ -13,11 +13,13 @@ package com.losalpes.beans;
 import com.losalpes.bos.Usuario;
 import com.losalpes.excepciones.AutenticacionException;
 import com.losalpes.servicios.IServicioSeguridad;
-import com.losalpes.servicios.ServicioSeguridadMock;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpSession;
  *
  */
 @ManagedBean
+@SessionScoped
 public class LoginBean implements Serializable {
 
     //-----------------------------------------------------------
@@ -58,7 +61,17 @@ public class LoginBean implements Serializable {
      */
     public LoginBean() {
         error = false;
-        servicio = new ServicioSeguridadMock();
+    }
+
+    /**
+     * PostConstruct donde se incializa el servicio de usuarios, que se
+     * encuentra en la unica fuente de datos en bean de aplicaición DatosBean
+     */
+    @PostConstruct
+    public void inicializar() {
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        DatosBean datos = (DatosBean) servletContext.getAttribute("datosBean");
+        servicio = datos.getServicio();
     }
 
     //-----------------------------------------------------------

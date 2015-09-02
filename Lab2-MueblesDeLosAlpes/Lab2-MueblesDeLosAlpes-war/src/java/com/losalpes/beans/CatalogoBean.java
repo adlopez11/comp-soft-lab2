@@ -13,12 +13,14 @@ package com.losalpes.beans;
 import com.losalpes.bos.Mueble;
 import com.losalpes.bos.TipoMueble;
 import com.losalpes.servicios.IServicioCatalogo;
-import com.losalpes.servicios.ServicioCatalogoMock;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
 
 /**
  * Managed bean encargado del catálogo de muebles en el sistema
@@ -50,7 +52,17 @@ public class CatalogoBean implements Serializable {
      */
     public CatalogoBean() {
         mueble = new Mueble();
-        catalogo = new ServicioCatalogoMock();
+    }
+
+    /**
+     * PostConstruct donde se incializa el catalogo de muebles, que se encuentra
+     * en la unica fuente de datos en bean de aplicaición DatosBean
+     */
+    @PostConstruct
+    public void inicializar() {
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        DatosBean datos = (DatosBean) servletContext.getAttribute("datosBean");
+        catalogo = datos.getCatalogo();
     }
 
     //-----------------------------------------------------------

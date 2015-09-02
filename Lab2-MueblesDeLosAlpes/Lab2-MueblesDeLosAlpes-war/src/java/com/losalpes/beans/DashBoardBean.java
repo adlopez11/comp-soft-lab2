@@ -10,9 +10,8 @@
  */
 package com.losalpes.beans;
 
+import com.losalpes.bos.TipoUsuario;
 import com.losalpes.bos.Usuario;
-import com.losalpes.servicios.IServicioCatalogo;
-import com.losalpes.servicios.ServicioCatalogoMock;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -33,12 +32,6 @@ public class DashBoardBean implements Serializable {
      */
     private Usuario usuario;
 
-    /**
-     * Relación con la interfaz que provee los servicios necesarios del
-     * catálogo.
-     */
-    private IServicioCatalogo catalogo;
-
     //-----------------------------------------------------------
     // Constructor
     //-----------------------------------------------------------
@@ -46,12 +39,8 @@ public class DashBoardBean implements Serializable {
      * Constructor de la clase
      */
     public DashBoardBean() {
-        catalogo = new ServicioCatalogoMock();
     }
 
-    //-----------------------------------------------------------
-    // Post-Constructor
-    //-----------------------------------------------------------
     /**
      * Post-Constructor de la clase busca el usuario que inicio sesión y que
      * esta almacenado en la sesion Http,
@@ -115,13 +104,15 @@ public class DashBoardBean implements Serializable {
     }
 
     /**
-     * Realiza la redireccion del sistema a la pagina de mi perfil
+     * Cierra la sesión actual y redirecciona a la pagina de login
      *
-     * @return pagina Devuelve un string con el acceso a la pagina del perfil
+     * @return pagina Devuelve un string con el acceso a la pagina de login
      */
     public String cerrarCesion() {
-        HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        sesion.removeAttribute("Usuario");
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.removeAttribute("dashBoardBean");
+        session.removeAttribute("Usuario");
         return "cerrar";
     }
 
@@ -132,5 +123,13 @@ public class DashBoardBean implements Serializable {
      */
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public boolean isRenderCliente() {
+        return usuario != null && usuario.getTipo().equals(TipoUsuario.CLIENTE);
+    }
+
+    public boolean isRenderAdministrador() {
+        return usuario != null && usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR);
     }
 }

@@ -13,10 +13,12 @@ package com.losalpes.beans;
 import com.losalpes.bos.TipoUsuario;
 import com.losalpes.bos.Usuario;
 import com.losalpes.servicios.IServicioSeguridad;
-import com.losalpes.servicios.ServicioSeguridadMock;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
 
 /**
  * Managed bean encargado de la administración de usuarios
@@ -34,10 +36,10 @@ public class UsuarioBean {
     private Usuario usuario;
 
     /**
-     * Relación con la interfaz que provee los servicios necesarios de
-     * la seguridad.
+     * Relación con la interfaz que provee los servicios necesarios de la
+     * seguridad.
      */
-    private final IServicioSeguridad seguridad;
+    private IServicioSeguridad seguridad;
 
     //-----------------------------------------------------------
     // Constructor
@@ -47,7 +49,17 @@ public class UsuarioBean {
      */
     public UsuarioBean() {
         usuario = new Usuario();
-        seguridad = new ServicioSeguridadMock();
+    }
+
+    /**
+     * PostConstruct donde se incializa el servicio de usuarios, que se
+     * encuentra en la unica fuente de datos en bean de aplicaición DatosBean
+     */
+    @PostConstruct
+    public void inicializar() {
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        DatosBean datos = (DatosBean) servletContext.getAttribute("datosBean");
+        seguridad = datos.getServicio();
     }
 
     //-----------------------------------------------------------
