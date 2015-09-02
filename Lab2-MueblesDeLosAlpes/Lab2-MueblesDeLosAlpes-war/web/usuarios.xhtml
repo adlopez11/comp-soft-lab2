@@ -4,6 +4,7 @@
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -53,11 +54,10 @@
                 <h:commandButton value="Agregar" action="#{usuarioBean.agregarUsuario}" />
                 <h:commandButton value="Limpiar" action="#{usuarioBean.limpiar}" />
             </h:panelGroup>
-
         </h:form>
+        <br/>
+        <br/>
         <h:form>
-
-
             <!-- Se crea una tabla donde se presentan los usuarios del sistema -->
             <p:dataTable
                 id="data"
@@ -80,7 +80,11 @@
                 </p:column>
 
             </p:dataTable>
-
+            <br/>
+            <br/>
+            <h:commandButton value="Menu" action="atras" />
+            <br/>
+            <br/>
         </h:form>
 
     </ui:define>

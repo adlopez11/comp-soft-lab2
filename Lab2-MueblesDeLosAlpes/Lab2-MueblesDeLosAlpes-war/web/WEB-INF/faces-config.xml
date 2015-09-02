@@ -34,8 +34,47 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>reportes</from-outcome>
+            <to-view-id>/reportes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>perfil</from-outcome>
+            <to-view-id>/perfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cerrar</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>error</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/catalogo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atras</from-outcome>
+            <to-view-id>/dashboard.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuarios.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atras</from-outcome>
+            <to-view-id>/dashboard.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/perfil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atras</from-outcome>
+            <to-view-id>/dashboard.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

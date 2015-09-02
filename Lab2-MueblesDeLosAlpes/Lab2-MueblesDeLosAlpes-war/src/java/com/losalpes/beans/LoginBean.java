@@ -1,38 +1,35 @@
 /**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * $Id$ LoginBean.java
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación
- * Licenciado bajo el esquema Academic Free License version 3.0
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ $Id$
+ * LoginBean.java Universidad de los Andes (Bogotá - Colombia) Departamento de
+ * Ingeniería de Sistemas y Computación Licenciado bajo el esquema Academic Free
+ * License version 3.0
  *
  * Ejercicio: Muebles de los Alpes
- * 
+ *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-
 package com.losalpes.beans;
 
-import com.losalpes.bos.TipoUsuario;
 import com.losalpes.bos.Usuario;
 import com.losalpes.excepciones.AutenticacionException;
 import com.losalpes.servicios.IServicioSeguridad;
 import com.losalpes.servicios.ServicioSeguridadMock;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  * Managed bean encargado de la autenticación en el sistema
- * 
+ *
  */
 @ManagedBean
-public class LoginBean
-{
+public class LoginBean implements Serializable {
 
     //-----------------------------------------------------------
     // Atributos
     //-----------------------------------------------------------
-    
     /**
      * Nombre del usuario
      */
@@ -56,111 +53,105 @@ public class LoginBean
     //-----------------------------------------------------------
     // Constructor
     //-----------------------------------------------------------
-
     /**
      * Constructor de la clase
      */
-    public LoginBean()
-    {
-        error=false;
-        servicio=new ServicioSeguridadMock();
+    public LoginBean() {
+        error = false;
+        servicio = new ServicioSeguridadMock();
     }
 
     //-----------------------------------------------------------
     // Métodos
     //-----------------------------------------------------------
-
     /**
-     * Realiza la autenticación de un usuario que desea entrar al sistema
+     * Realiza la autenticación de un usuario que desea entrar al sistema guarda
+     * el modelo de servicio de seguridad en sesion, ya que contiene la lista de
+     * usuarios es decir de clientes
+     *
      * @return tipoUsuario Devuelve el tipo de usuario
      */
-    public String login()
-    {
-       
-        try
-        {
+    public String login() {
+
+        try {
             Usuario user = servicio.login(usuario, contraseña);
-            if (user.getTipo() == TipoUsuario.ADMINISTRADOR)
-            {
+            contraseña = null;
+            if (user != null) {
+                HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                sesion.setAttribute("Usuario", user);
                 return "login";
+            } else {
+                return "";
             }
-            else
-            {
-                return "error";
-            }
-        }
-        catch (AutenticacionException ex)
-        {
-            error=true;
-            FacesMessage mensaje=new FacesMessage(FacesMessage.SEVERITY_ERROR,ex.getMessage(),"");
+        } catch (AutenticacionException ex) {
+            error = true;
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage("", mensaje);
-            return "error";
+            return "";
         }
     }
 
     //-----------------------------------------------------------
     // Getters y setters
     //-----------------------------------------------------------
-
     /**
      * Devuelve el nombre del usuario
+     *
      * @return usuario Nombre del usuario
      */
-    public String getUsuario()
-    {
+    public String getUsuario() {
         return usuario;
     }
 
     /**
      * Modifica el nombre del usuario
+     *
      * @param usuario Nuevo nombre del usuario
      */
-    public void setUsuario(String usuario)
-    {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
     /**
      * Devuelve la contraseña del usuario
+     *
      * @return contraseña Contraseña del usuario
      */
-    public String getContraseña()
-    {
+    public String getContraseña() {
         return contraseña;
     }
 
     /**
      * Modifica la contraseña de un usuario
+     *
      * @param contraseña Nueva contraseña
      */
-    public void setContraseña(String contraseña)
-    {
+    public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
 
     /**
      * Devuelve el estado de la autenticación (si es error o no)
+     *
      * @return error Estado de autenticación
      */
-    public boolean isError()
-    {
+    public boolean isError() {
         return error;
     }
 
     /**
      * Modifica el estado de error
+     *
      * @param error Nuevo estado
      */
-    public void setError(boolean error)
-    {
+    public void setError(boolean error) {
         this.error = error;
     }
 
     /**
      * Cierra el panel de error
      */
-    public void cerrarPanelError()
-    {
-        error=false;
+    public void cerrarPanelError() {
+        error = false;
     }
 }

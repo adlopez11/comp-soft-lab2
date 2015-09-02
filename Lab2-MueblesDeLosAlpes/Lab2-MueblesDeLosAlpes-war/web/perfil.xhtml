@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : index
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:param name="titulo" value="Dashboard" />
+    <ui:define name="body">
+        <h:form>
+            <!-- Formulario de acceso  -->
+            <h:panelGroup>
+                <f:facet name="header" >
+                    Mi Perfil
+                </f:facet>
+                <div align="center">
+                    <br/>
+                    <br/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nombre: " style="font-weight: bold; font-size: 12px;"/>
+                        <h:outputText value="#{dashBoardBean.usuario.nombre}" style="font-size: 12px;"/>
+                        <h:outputLabel value="Tipo: " style="font-weight: bold; font-size: 12px;"/>
+                        <h:outputText value="#{dashBoardBean.usuario.tipo}" style="font-size: 12px;"/>
+                    </h:panelGrid>
+                    <br/>
+                    <br/>
+                    <h:commandButton value="Menu" action="atras" />
+                    <br/>
+                    <br/>
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>
