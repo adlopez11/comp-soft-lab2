@@ -113,6 +113,7 @@ public class DashBoardBean implements Serializable {
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         session.removeAttribute("dashBoardBean");
         session.removeAttribute("carritoBean");
+        session.removeAttribute("reportesBean");
         session.removeAttribute("catalogoBean");
         session.removeAttribute("usuariosBean");
         session.removeAttribute("Usuario");

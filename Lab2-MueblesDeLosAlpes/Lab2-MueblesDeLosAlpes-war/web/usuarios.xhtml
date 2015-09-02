@@ -33,14 +33,14 @@
                 <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
                     <h:outputLabel for="TxtContraseña"
                                    value="Contraseña" />
-                    <h:inputText id="TxtContraseña"
+                    <h:inputSecret id="TxtContraseña"
                                  maxlength="20"
                                  size="20"
                                  value="#{usuarioBean.usuario.contraseña}"
                                  label="Contraseña"
                                  required="true">
                         <f:validateLength minimum="5"/>
-                    </h:inputText>
+                    </h:inputSecret>
                     <h:message id="pwMsg" for="TxtContraseña" />
                 </h:panelGrid>
 
@@ -57,12 +57,15 @@
         </h:form>
         <br/>
         <br/>
+        <h:form id="carDetail"></h:form>
         <h:form>
             <!-- Se crea una tabla donde se presentan los usuarios del sistema -->
             <p:dataTable
                 id="data"
                 value="#{usuarioBean.usuarios}"
+                selection="#{usuarioBean.usuario}"
                 var="file"
+                rowKey="#{file.nombre}"
                 scrollable="false"
                 scrollHeight="100px"
                 paginator="true"
@@ -70,7 +73,8 @@
                 resizableColumns="true"
                 rows="5">
 
-
+                <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                
                 <p:column headerText="Nombre" sortBy="#{file.nombre}">
                     <h:outputText value="#{file.nombre}" />
                 </p:column>
@@ -78,7 +82,6 @@
                 <p:column headerText="Rol">
                     <h:outputText value="#{file.tipo}" />
                 </p:column>
-
             </p:dataTable>
             <br/>
             <br/>

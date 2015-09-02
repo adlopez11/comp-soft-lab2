@@ -17,6 +17,7 @@ import com.losalpes.servicios.IServicioCatalogo;
 import com.losalpes.servicios.IServicioVenta;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -64,8 +65,8 @@ public class CarritoBean implements Serializable {
     }
 
     /**
-     * PostConstruct donde se incializa el catalogo de muebles, que se encuentra
-     * en la unica fuente de datos en bean de aplicaición DatosBean
+     * PostConstruct donde se incializa el la lista de muebles del catalogo, que
+     * se encuentra en la unica fuente de datos en bean de aplicaición DatosBean
      */
     @PostConstruct
     public void inicializar() {
@@ -117,6 +118,7 @@ public class CarritoBean implements Serializable {
 
         for (Venta venta : carrito) {
             venta.setCliente(usuario);
+            venta.setFecha(new Date());
             ventas.agregarVenta(venta);
         }
         carrito.clear();

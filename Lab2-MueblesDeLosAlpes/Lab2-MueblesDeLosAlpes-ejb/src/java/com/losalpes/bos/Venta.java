@@ -9,6 +9,8 @@
  */
 package com.losalpes.bos;
 
+import java.util.Date;
+
 /**
  * Clase que representa la venta de un mueble
  */
@@ -31,6 +33,11 @@ public class Venta {
      * Cantidad de muebles comprados del mismo tipo
      */
     private int cantidad;
+
+    /**
+     * Fecha de la venta
+     */
+    private Date fecha;
 
     //-----------------------------------------------------------
     // Constructores
@@ -111,6 +118,14 @@ public class Venta {
      */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
 }

@@ -13,19 +13,22 @@ package com.losalpes.beans;
 import com.losalpes.bos.TipoUsuario;
 import com.losalpes.bos.Usuario;
 import com.losalpes.servicios.IServicioSeguridad;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  * Managed bean encargado de la administración de usuarios
  *
  */
 @ManagedBean
-public class UsuarioBean {
+public class UsuarioBean implements Serializable {
 
     //-----------------------------------------------------------
     // Atributos
@@ -34,8 +37,13 @@ public class UsuarioBean {
      * Representa un nuevo usuario a ingresar
      */
     private Usuario usuario;
-
+    
     /**
+     * Representa el usuario seleccionado
+     */
+    private Usuario usuarioSeleccionado;
+
+       /**
      * Relación con la interfaz que provee los servicios necesarios de la
      * seguridad.
      */
@@ -126,4 +134,21 @@ public class UsuarioBean {
         return sitems;
     }
 
+     public Usuario getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+       /* FacesMessage msg = new FacesMessage("Car Selected", ((Car) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+       /* FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);*/
+    }
 }

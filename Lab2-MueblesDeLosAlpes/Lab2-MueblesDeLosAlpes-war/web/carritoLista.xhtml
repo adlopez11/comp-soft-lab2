@@ -75,7 +75,7 @@
                     <h:outputText value="#{venta.mueble.tipo}" />
                 </p:column>
 
-                <p:column headerText="Valor Unitario">
+                <p:column headerText="Valor Unitario" style="text-align: right;">
                     <h:outputText value="#{venta.mueble.valor}" >
                         <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                     </h:outputText>
@@ -85,7 +85,7 @@
                     <h:outputText value="#{venta.cantidad}" />
                 </p:column>
 
-                <p:column headerText="valor Total">
+                <p:column headerText="valor Total" style="text-align: right;">
                     <h:outputText value="#{(venta.cantidad * venta.mueble.valor)}" >
                         <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                     </h:outputText>

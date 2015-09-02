@@ -65,7 +65,7 @@ public class DatosBean implements Serializable {
     }
 
     /**
-     * Retorna el Servicios de Usuarios
+     * Retorna el Servicio de Usuarios
      *
      * @return
      */
